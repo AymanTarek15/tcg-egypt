@@ -1,17 +1,50 @@
 import Footer from "./components/layout/Footer/Footer";
 import Navbar from "./components/layout/Navbar/Navbar";
 import "./globals.css";
-// import Footer from "@/components/layout/Footer/Footer";
 
+/** @type {import("next").Metadata} */
 export const metadata = {
-  title: "YGO Egypt",
-  description: "Yu-Gi-Oh marketplace, meta updates, and tier lists for Egypt",
+  metadataBase: new URL("https://tcg-egypt.com"),
+  title: {
+    default: "TCG Egypt",
+    template: "%s | TCG Egypt",
+  },
+  description: "Yu-Gi-Oh marketplace, meta updates, and tier lists for Egypt.",
+  keywords: [
+    "Yu-Gi-Oh Egypt",
+    "YGO Egypt",
+    "Yu-Gi-Oh cards Egypt",
+    "TCG Egypt",
+    "Yu-Gi-Oh marketplace",
+    "tier lists",
+    "meta updates",
+  ],
+  alternates: {
+    canonical: "/",
+  },
+  robots: {
+    index: true,
+    follow: true,
+  },
+  openGraph: {
+    type: "website",
+    url: "https://tcg-egypt.com",
+    siteName: "TCG Egypt",
+    title: "TCG Egypt",
+    description: "Yu-Gi-Oh marketplace, meta updates, and tier lists for Egypt.",
+    locale: "en_US",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "TCG Egypt",
+    description: "Yu-Gi-Oh marketplace, meta updates, and tier lists for Egypt.",
+  },
 };
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en" suppressHydrationWarning>
-      <body suppressHydrationWarning>
+    <html lang="en">
+      <body>
         <Navbar />
         <main>{children}</main>
         <Footer />
