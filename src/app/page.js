@@ -19,8 +19,8 @@ export default async function HomePage() {
     <>
       <Hero />
       <FeaturedCards cards={featuredCards.results} />
-      <TierListPreview />
-      <LatestArticles />
+      {/* <TierListPreview /> */}
+      {/* <LatestArticles /> */}
     </>
   );
 }

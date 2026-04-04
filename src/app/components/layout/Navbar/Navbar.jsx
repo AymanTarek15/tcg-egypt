@@ -61,9 +61,9 @@ export default function Navbar() {
           <nav className={`${styles.navlinks} ${open ? styles.active : ""}`}>
             <Link href="/cards" onClick={closeMenu}>Cards</Link>
             <Link href="/sell" onClick={closeMenu}>Sell</Link>
-            <Link href="/meta" onClick={closeMenu}>Meta</Link>
-            <Link href="/tier-lists" onClick={closeMenu}>Tier Lists</Link>
-            <Link href="/news" onClick={closeMenu}>News</Link>
+            {/* <Link href="/meta" onClick={closeMenu}>Meta</Link> */}
+            {/* <Link href="/tier-lists" onClick={closeMenu}>Tier Lists</Link> */}
+            {/* <Link href="/news" onClick={closeMenu}>News</Link> */}
             <Link href="/profile" onClick={closeMenu}>Profile</Link>
 
             {loggedIn ? (
