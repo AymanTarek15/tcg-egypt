@@ -1,0 +1,211 @@
+.page {
+  min-height: 100vh;
+  background: #0f1117;
+  padding: 50px 0;
+}
+
+.layout {
+  display: grid;
+  gap: 24px;
+}
+
+.profileCard,
+.listingsCard {
+  background: #171c27;
+  border: 1px solid #2b3240;
+  border-radius: 20px;
+  padding: 24px;
+}
+
+.title {
+  margin: 0 0 18px;
+  color: #f3f4f6;
+}
+
+.accountMeta {
+  margin-bottom: 20px;
+  color: #c7ced9;
+  display: grid;
+  gap: 6px;
+}
+
+.form {
+  display: grid;
+  gap: 16px;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(220px, 1fr));
+  gap: 16px;
+}
+
+.field {
+  display: grid;
+  gap: 8px;
+}
+
+.field label {
+  color: #c7ced9;
+  font-weight: 600;
+}
+
+.field input,
+.field textarea {
+  width: 100%;
+  border: 1px solid #2b3240;
+  background: #0f1117;
+  color: #f3f4f6;
+  border-radius: 12px;
+  padding: 12px 14px;
+  outline: none;
+}
+
+.saveBtn {
+  height: 46px;
+  border: none;
+  border-radius: 12px;
+  background: #8b5a2b;
+  color: white;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.errorText {
+  color: #ff7b7b;
+}
+
+.successText {
+  color: #7ee787;
+}
+
+.listingsHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 18px;
+}
+
+.listingsHeader h2 {
+  margin: 0;
+  color: #f3f4f6;
+}
+
+.listingsHeader span {
+  background: #8b5a2b;
+  color: white;
+  border-radius: 999px;
+  padding: 6px 12px;
+  font-weight: 700;
+}
+
+.stateText {
+  color: #9ca3af;
+}
+
+.listingsGrid {
+  display: grid;
+  gap: 14px;
+}
+
+.listingItem {
+  display: flex;
+  gap: 14px;
+  background: #1c2230;
+  border: 1px solid #2b3240;
+  border-radius: 16px;
+  padding: 14px;
+}
+
+.listingImage {
+  width: 90px;
+  height: 120px;
+  object-fit: cover;
+  border-radius: 10px;
+  border: 1px solid #2b3240;
+  background: #0f1117;
+  flex-shrink: 0;
+}
+
+.listingBody h3 {
+  margin: 0 0 8px;
+  color: #f3f4f6;
+}
+
+.listingBody p {
+  margin: 0 0 6px;
+  color: #f3f4f6;
+  font-weight: 700;
+}
+
+.listingBody small {
+  color: #9ca3af;
+}
+
+.phoneRow {
+  display: grid;
+  grid-template-columns: 120px 1fr;
+  gap: 10px;
+}
+
+.countryCode {
+  width: 100%;
+  border: 1px solid #2b3240;
+  background: #0f1117;
+  color: #f3f4f6;
+  border-radius: 12px;
+  padding: 12px 10px;
+  outline: none;
+}
+
+.phoneInput {
+  width: 100%;
+}
+
+.listingTopRow {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-bottom: 14px;
+}
+
+.availableBadge,
+.soldBadge {
+  display: inline-block;
+  padding: 8px 14px;
+  border-radius: 999px;
+  font-size: 0.9rem;
+  font-weight: 700;
+}
+
+.availableBadge {
+  background: #1f7a3f;
+  color: white;
+}
+
+.soldBadge {
+  background: #6b7280;
+  color: white;
+}
+
+@media (max-width: 640px) {
+  .phoneRow {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 700px) {
+  .grid {
+    grid-template-columns: 1fr;
+  }
+
+  .listingItem {
+    flex-direction: column;
+  }
+
+  .listingImage {
+    width: 120px;
+    height: 160px;
+  }
+}

@@ -1,0 +1,42 @@
+.page {
+  padding: 60px 0;
+}
+
+.list {
+  display: grid;
+  gap: 18px;
+}
+
+.card {
+  background: #171c27;
+  border: 1px solid #272e3b;
+  border-radius: 18px;
+  padding: 20px;
+  display: flex;
+  gap: 20px;
+  align-items: center;
+}
+
+.tier {
+  min-width: 64px;
+  height: 64px;
+  border-radius: 16px;
+  background: #ff3b3b;
+  display: grid;
+  place-items: center;
+  font-size: 1.4rem;
+  font-weight: 800;
+}
+
+.decks {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.deck {
+  background: #222837;
+  color: #dce2eb;
+  padding: 10px 14px;
+  border-radius: 12px;
+}

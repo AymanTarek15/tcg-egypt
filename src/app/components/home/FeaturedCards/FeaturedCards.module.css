@@ -1,0 +1,45 @@
+.section {
+  padding: 60px 0;
+}
+
+.cardsSlider {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+}
+
+.cardSlide {
+  min-width: 0;
+}
+
+@media (max-width: 900px) {
+  .cardsSlider {
+    display: flex;
+    gap: 14px;
+    overflow-x: auto;
+    overflow-y: hidden;
+    scroll-snap-type: x mandatory;
+    padding-bottom: 10px;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .cardsSlider::-webkit-scrollbar {
+    height: 6px;
+  }
+
+  .cardsSlider::-webkit-scrollbar-thumb {
+    background: #333b4b;
+    border-radius: 999px;
+  }
+
+  .cardSlide {
+    flex: 0 0 170px;
+    scroll-snap-align: start;
+  }
+}
+
+@media (max-width: 500px) {
+  .cardSlide {
+    flex: 0 0 145px;
+  }
+}

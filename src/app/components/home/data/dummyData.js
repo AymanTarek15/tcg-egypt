@@ -1,0 +1,135 @@
+export const featuredCards = [
+  {
+    id: 1,
+    name: "Blue-Eyes White Dragon",
+    slug: "blue-eyes-white-dragon",
+    price: 1500,
+    condition: "Near Mint",
+    rarity: "Ultra Rare",
+    type: "Monster",
+    image: "https://images.ygoprodeck.com/images/cards/89631139.jpg",
+    description: "A legendary dragon that is a powerful engine of destruction.",
+    seller: "Ahmed",
+  },
+  {
+    id: 2,
+    name: "Dark Magician",
+    slug: "dark-magician",
+    price: 1200,
+    condition: "Lightly Played",
+    rarity: "Ultra Rare",
+    type: "Monster",
+    image: "https://images.ygoprodeck.com/images/cards/46986414.jpg",
+    description: "The ultimate wizard in terms of attack and defense.",
+    seller: "Omar",
+  },
+  {
+    id: 3,
+    name: "Ash Blossom & Joyous Spring",
+    slug: "ash-blossom-joyous-spring",
+    price: 900,
+    condition: "Near Mint",
+    rarity: "Secret Rare",
+    type: "Monster",
+    image: "https://images.ygoprodeck.com/images/cards/14558127.jpg",
+    description: "A powerful hand trap used in many competitive decks.",
+    seller: "Youssef",
+  },
+  {
+    id: 4,
+    name: "Triple Tactics Talent",
+    slug: "triple-tactics-talent",
+    price: 1800,
+    condition: "Mint",
+    rarity: "Ultra Rare",
+    type: "Spell",
+    image: "https://images.ygoprodeck.com/images/cards/25311006.jpg",
+    description: "A strong spell for drawing, stealing, or disrupting.",
+    seller: "Karim",
+  },
+  {
+    id: 5,
+    name: "Forbidden Droplet",
+    slug: "forbidden-droplet",
+    price: 1600,
+    condition: "Near Mint",
+    rarity: "Secret Rare",
+    type: "Spell",
+    image: "https://images.ygoprodeck.com/images/cards/24224830.jpg",
+    description: "A top-tier staple card for breaking boards.",
+    seller: "Mina",
+  },
+  {
+    id: 6,
+    name: "Infinite Impermanence",
+    slug: "infinite-impermanence",
+    price: 1100,
+    condition: "Lightly Played",
+    rarity: "Ultra Rare",
+    type: "Trap",
+    image: "https://images.ygoprodeck.com/images/cards/10045474.jpg",
+    description: "A versatile trap and hand trap staple.",
+    seller: "Hesham",
+  },
+];
+
+export const latestArticles = [
+  {
+    id: 1,
+    title: "Top decks to watch this format",
+    excerpt: "A quick look at the strongest strategies and what may rise next.",
+    category: "Meta",
+    date: "March 2026",
+  },
+  {
+    id: 2,
+    title: "How to price your cards before listing",
+    excerpt: "A simple seller guide for pricing cards competitively in Egypt.",
+    category: "Guide",
+    date: "March 2026",
+  },
+  {
+    id: 3,
+    title: "Side deck tips for local tournaments",
+    excerpt: "Strong ideas to improve your matchups against popular decks.",
+    category: "Guide",
+    date: "March 2026",
+  },
+  {
+    id: 4,
+    title: "What the latest banlist means for rogue decks",
+    excerpt: "Some overlooked strategies may benefit more than expected.",
+    category: "News",
+    date: "March 2026",
+  },
+];
+
+export const tierListData = [
+  {
+    tier: "S",
+    decks: ["Snake-Eye", "Branded Despia"],
+  },
+  {
+    tier: "A",
+    decks: ["Labrynth", "Kashtira", "Rescue-ACE"],
+  },
+  {
+    tier: "B",
+    decks: ["Floowandereeze", "Swordsoul", "Purrely"],
+  },
+];
+
+export const profileListings = [
+  {
+    id: 1,
+    name: "Blue-Eyes White Dragon",
+    price: 1500,
+    status: "Active",
+  },
+  {
+    id: 2,
+    name: "Infinite Impermanence",
+    price: 1100,
+    status: "Sold",
+  },
+];

@@ -1,0 +1,158 @@
+.page {
+  min-height: 100vh;
+  background: #0f1117;
+  padding: 50px 0;
+}
+
+.layout {
+  display: grid;
+  grid-template-columns: 1.3fr 0.9fr;
+  gap: 24px;
+}
+
+.formCard,
+.summaryCard {
+  background: #171c27;
+  border: 1px solid #2b3240;
+  border-radius: 20px;
+  padding: 24px;
+}
+
+.title {
+  margin: 0 0 8px;
+  color: #f3f4f6;
+}
+
+.subtitle {
+  margin: 0 0 20px;
+  color: #9ca3af;
+}
+
+.form {
+  display: grid;
+  gap: 16px;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(220px, 1fr));
+  gap: 16px;
+}
+
+.field,
+.fieldFull {
+  display: grid;
+  gap: 8px;
+}
+
+.fieldFull {
+  grid-column: 1 / -1;
+}
+
+.field label,
+.fieldFull label {
+  color: #c7ced9;
+  font-weight: 600;
+}
+
+.field input,
+.field select,
+.field textarea,
+.fieldFull input,
+.fieldFull select,
+.fieldFull textarea {
+  width: 100%;
+  border: 1px solid #2b3240;
+  background: #0f1117;
+  color: #f3f4f6;
+  border-radius: 12px;
+  padding: 12px 14px;
+  outline: none;
+}
+
+.submitBtn {
+  height: 48px;
+  border: none;
+  border-radius: 12px;
+  background: #8b5a2b;
+  color: white;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.errorText {
+  color: #ff7b7b;
+}
+
+.successText {
+  color: #7ee787;
+}
+
+.summaryTitle {
+  margin: 0 0 18px;
+  color: #f3f4f6;
+}
+
+.productRow {
+  display: flex;
+  gap: 14px;
+  margin-bottom: 20px;
+}
+
+.productImage {
+  width: 100px;
+  height: 135px;
+  object-fit: cover;
+  border-radius: 12px;
+  border: 1px solid #2b3240;
+  background: #0f1117;
+  flex-shrink: 0;
+}
+
+.productInfo h3 {
+  margin: 0 0 8px;
+  color: #f3f4f6;
+}
+
+.productInfo p {
+  margin: 0 0 6px;
+  color: #9ca3af;
+}
+
+.productInfo strong {
+  color: #f3f4f6;
+  font-size: 1.05rem;
+}
+
+.summaryMeta {
+  display: grid;
+  gap: 12px;
+}
+
+.summaryMeta div {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 12px 0;
+  border-bottom: 1px solid #2b3240;
+}
+
+.summaryMeta span {
+  color: #9ca3af;
+}
+
+.summaryMeta strong {
+  color: #f3f4f6;
+}
+
+@media (max-width: 900px) {
+  .layout {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 700px) {
+  .grid {
+    grid-template-columns: 1fr;
+  }
+}

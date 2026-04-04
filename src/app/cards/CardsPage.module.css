@@ -1,0 +1,10 @@
+.page {
+  padding: 60px 0;
+}
+
+.topBar {
+  display: grid;
+  gap: 16px;
+  margin-bottom: 24px;
+}
+

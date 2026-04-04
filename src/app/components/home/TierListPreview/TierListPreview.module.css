@@ -1,0 +1,28 @@
+.section {
+  padding: 60px 0;
+}
+
+.list {
+  display: grid;
+  gap: 14px;
+}
+
+.row {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  background: #171c27;
+  border: 1px solid #272e3b;
+  border-radius: 16px;
+  padding: 16px 18px;
+}
+
+.tier {
+  min-width: 48px;
+  height: 48px;
+  display: grid;
+  place-items: center;
+  border-radius: 12px;
+  background: #ff3b3b;
+  font-weight: 700;
+}

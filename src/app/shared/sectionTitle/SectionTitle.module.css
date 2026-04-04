@@ -1,0 +1,14 @@
+.heading {
+  margin-bottom: 24px;
+}
+
+.heading h2 {
+  font-size: 2rem;
+  margin-bottom: 8px;
+}
+
+.heading p {
+  color: #aeb6c3;
+  max-width: 700px;
+  line-height: 1.6;
+}

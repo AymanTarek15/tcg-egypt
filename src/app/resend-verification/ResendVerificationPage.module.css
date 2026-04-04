@@ -1,0 +1,81 @@
+.page {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  background: #0f1117;
+  padding: 40px 0;
+}
+
+.card {
+  max-width: 520px;
+  margin: 0 auto;
+  background: #171c27;
+  border: 1px solid #2b3240;
+  border-radius: 20px;
+  padding: 32px 24px;
+  text-align: center;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+}
+
+.title {
+  margin: 0 0 12px;
+  color: #f3f4f6;
+  font-size: 1.9rem;
+}
+
+.subtitle {
+  margin: 0;
+  color: #9ca3af;
+}
+
+.email {
+  margin: 14px 0 20px;
+  color: #f3f4f6;
+  font-weight: 700;
+  word-break: break-word;
+}
+
+.message {
+  margin: 0 0 18px;
+  line-height: 1.7;
+}
+
+.success {
+  color: #7ee787;
+}
+
+.error {
+  color: #ff7b7b;
+}
+
+.actions {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.actionBtn,
+.secondaryBtn {
+  min-width: 160px;
+  height: 46px;
+  border: none;
+  border-radius: 12px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.actionBtn {
+  background: #8b5a2b;
+  color: white;
+}
+
+.secondaryBtn {
+  background: #222837;
+  color: white;
+}
+
+.actionBtn:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
