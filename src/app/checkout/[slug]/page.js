@@ -13,8 +13,8 @@ export default async function CheckoutPage({ params }) {
     const data = await fetchAPI(`/api/cards/listings/?slug=${encodeURIComponent(slug)}`);
     listing = data?.results?.[0] || null;
 
-    console.log("this slug is:", slug);
-    console.log("fetched listing:", listing);
+    // console.log("this slug is:", slug);
+    // console.log("fetched listing:", listing);
   } catch (error) {
     console.error("Checkout listing fetch error:", error.message);
   }

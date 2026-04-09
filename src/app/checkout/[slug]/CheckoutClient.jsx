@@ -10,6 +10,8 @@ const API_BASE = process.env.NEXT_PUBLIC_API_BASE_URL;
 
 export default function CheckoutClient({ listing }) {
   const router = useRouter();
+const [cities, setCities] = useState([]);
+const [loadingCities, setLoadingCities] = useState(true);
 
   const [loadingProfile, setLoadingProfile] = useState(true);
   const [submitting, setSubmitting] = useState(false);
@@ -26,6 +28,14 @@ export default function CheckoutClient({ listing }) {
     notes: "",
     payment_method: "cash_on_delivery",
   });
+
+  const selectedCity = cities.find(
+  (city) => String(city.id) === String(formData.city)
+);
+
+const shippingFee = Number(selectedCity?.shipping_price || 0);
+const subtotal = Number(listing.price || 0);
+const total = subtotal + shippingFee;
 
   useEffect(() => {
     async function loadProfile() {
@@ -69,6 +79,31 @@ export default function CheckoutClient({ listing }) {
 
     loadProfile();
   }, []);
+
+  useEffect(() => {
+  async function loadCities() {
+    try {
+      const res = await fetch(`${API_BASE}/api/orders/cities/`);
+
+      if (!res.ok) {
+        throw new Error(`Failed with status ${res.status}`);
+      }
+
+      const data = await res.json();
+      setCities(Array.isArray(data) ? data : data.results || []);
+    } catch (err) {
+      console.error("[browser] Failed to load cities", err);
+      setCities([]);
+    } finally {
+      setLoadingCities(false);
+    }
+  }
+
+  loadCities();
+}, []);
+
+
+
 
   function handleChange(e) {
     const { name, value } = e.target;
@@ -156,7 +191,8 @@ export default function CheckoutClient({ listing }) {
       setSubmitting(false);
     }
   }
-
+console.log(`cities are ${cities}`);
+console.log(cities);
   return (
     <section className={styles.page}>
       <Container>
@@ -195,8 +231,12 @@ export default function CheckoutClient({ listing }) {
                     type="email"
                     name="email"
                     value={formData.email}
-                    onChange={handleChange}
+                    disabled
+                    // onChange={handleChange}
+                    readOnly
+                    className={styles.readOnlyInput}
                   />
+                  {/* <small>This email is linked to your account and cannot be changed.</small> */}
                 </div>
 
                 <div className={styles.field}>
@@ -221,12 +261,22 @@ export default function CheckoutClient({ listing }) {
 
                 <div className={styles.field}>
                   <label>City</label>
-                  <input
-                    type="text"
-                    name="city"
-                    value={formData.city}
-                    onChange={handleChange}
-                  />
+                  <select
+    name="city"
+    value={formData.city}
+    onChange={handleChange}
+    disabled={loadingCities}
+  >
+    <option value="">
+      {loadingCities ? "Loading cities..." : "Select city"}
+    </option>
+
+    {cities.map((city) => (
+      <option key={city.id} value={city.id}>
+        {city.name} — {city.shipping_price} EGP
+      </option>
+    ))}
+  </select>
                 </div>
 
                 <div className={styles.field}>
@@ -281,26 +331,36 @@ export default function CheckoutClient({ listing }) {
             </div>
 
             <div className={styles.summaryMeta}>
-              <div>
-                <span>Seller</span>
-                <strong>{listing.seller_username || listing.seller}</strong>
-              </div>
+  <div>
+    <span>Seller</span>
+    <strong>{listing.seller_username || listing.seller}</strong>
+  </div>
 
-              <div>
-                <span>Edition</span>
-                <strong>{listing.edition || "—"}</strong>
-              </div>
+  <div>
+    <span>Edition</span>
+    <strong>{listing.edition || "—"}</strong>
+  </div>
 
-              <div>
-                <span>Language</span>
-                <strong>{listing.language || "—"}</strong>
-              </div>
+  <div>
+    <span>Language</span>
+    <strong>{listing.language || "—"}</strong>
+  </div>
 
-              <div>
-                <span>Total</span>
-                <strong>{listing.price} EGP</strong>
-              </div>
-            </div>
+  <div>
+    <span>Subtotal</span>
+    <strong>{subtotal} EGP</strong>
+  </div>
+
+  <div>
+    <span>Shipping</span>
+    <strong>{formData.city ? `${shippingFee} EGP` : "Select city"}</strong>
+  </div>
+
+  <div className={styles.totalRow}>
+    <span>Total</span>
+    <strong>{total} EGP</strong>
+  </div>
+</div>
           </div>
         </div>
       </Container>

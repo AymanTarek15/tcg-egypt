@@ -127,7 +127,14 @@ export default async function CardDetailPage({ params }) {
                         View Listing
                       </Link>
 
-                      <button className={styles.buyButton}>Buy Now</button>
+  {/* <div className={styles.actions}>
+              <Link href={`/checkout/${listing.slug}`} className={styles.buyButton}>
+  Buy Now
+</Link>
+            </div> */}
+                      <Link href={`/checkout/${listing.slug}`} className={styles.buyButton}>
+  Buy Now
+</Link>
                     </div>
                   </div>
                 </div>

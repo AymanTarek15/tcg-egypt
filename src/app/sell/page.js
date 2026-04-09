@@ -39,6 +39,10 @@ export default function SellPage() {
   const [edition, setEdition] = useState("1st Edition");
   const [selectedSetId, setSelectedSetId] = useState("");
 
+  const [profileChecked, setProfileChecked] = useState(false);
+const [profileIncomplete, setProfileIncomplete] = useState(false);
+const [profileMessage, setProfileMessage] = useState("");
+
   const runSearch = useMemo(
     () =>
       debounce(async (value) => {
@@ -62,6 +66,60 @@ export default function SellPage() {
       }, 350),
     [],
   );
+
+  useEffect(() => {
+  async function checkProfileCompletion() {
+    const token =
+      localStorage.getItem("access") || localStorage.getItem("token");
+
+    if (!token) {
+      setProfileChecked(true);
+      setProfileIncomplete(true);
+      setProfileMessage("Please log in first.");
+      return;
+    }
+
+    try {
+      const res = await fetch(
+        `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/users/me/`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      const data = await res.json().catch(() => null);
+
+      if (!res.ok) {
+        throw new Error(data?.detail || "Failed to load profile.");
+      }
+
+      const isComplete =
+        data?.first_name?.trim() &&
+        data?.last_name?.trim() &&
+        data?.phone_number?.trim() &&
+        data?.shipping_address?.trim();
+
+      if (!isComplete) {
+        setProfileIncomplete(true);
+        setProfileMessage(
+          "Please complete your profile first: first name, last name, phone number, and shipping address."
+        );
+      } else {
+        setProfileIncomplete(false);
+        setProfileMessage("");
+      }
+    } catch (error) {
+      setProfileIncomplete(true);
+      setProfileMessage("Could not verify your profile. Please try again.");
+    } finally {
+      setProfileChecked(true);
+    }
+  }
+
+  checkProfileCompletion();
+}, []);
 
   useEffect(() => {
     if (isCardChosen) return;
@@ -128,6 +186,18 @@ async function handleSelectCard(card) {
   async function handleSubmit(e) {
   e.preventDefault();
   setSubmitError("");
+
+  if (!profileChecked) {
+  setSubmitError("Checking your profile, please wait.");
+  return;
+}
+
+if (profileIncomplete) {
+  setSubmitError(
+    "Please complete your profile first: first name, last name, phone number, and shipping address."
+  );
+  return;
+}
 
   if (!selectedCard) {
     setSubmitError("Please select a card first.");
@@ -350,6 +420,12 @@ async function handleSelectCard(card) {
           subtitle="Search a card, choose its artwork, then complete the listing."
         />
 
+        {profileIncomplete && (
+  <p className={styles.submitError}>
+    {profileMessage} <a style={{color:"white"}} href="/profile">Go to Profile here</a>
+  </p>
+)}
+
         <form className={styles.form} onSubmit={handleSubmit}>
           <div className={styles.field}>
             <label>Search card</label>
@@ -416,7 +492,26 @@ async function handleSelectCard(card) {
 
             <div className={styles.field}>
               <label>Rarity</label>
-              <input type="text" value={selectedRarity} readOnly />
+              <select
+  value={selectedRarity}
+  onChange={(e) => setSelectedRarity(e.target.value)}
+>
+  <option value="">Select rarity</option>
+  <option value="Common">Common</option>
+  <option value="Rare">Rare</option>
+  <option value="Super Rare">Super Rare</option>
+  <option value="Ultra Rare">Ultra Rare</option>
+  <option value="Secret Rare">Secret Rare</option>
+  <option value="Ultimate Rare">Ultimate Rare</option>
+  <option value="Gold Rare">Gold Rare</option>
+  <option value="Platinum secret Rare">Platinum secret Rare</option>
+  <option value="Collector's Rare">Collector's Rare</option>
+  <option value="Premium Gold Rare">Premium Gold Rare</option>
+  <option value="Starlight Rare">Starlight Rare</option>
+  <option value="Quarter Century Rare">Quarter Century Rare</option>
+</select>
+
+
             </div>
 
             <div className={styles.field}>
@@ -559,6 +654,7 @@ async function handleSelectCard(card) {
           </div>
 
           {submitError && <p className={styles.submitError}>{submitError}</p>}
+          
 
           <button
             type="submit"

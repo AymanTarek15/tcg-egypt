@@ -19,7 +19,8 @@ export default async function CardsPage({ searchParams }) {
   const queryString = new URLSearchParams(cleanParams).toString();
 
   const cardsEndpoint = `/api/cards/database/${queryString ? `?${queryString}` : ""}`;
-  const listingsEndpoint = `/api/cards/listings/`;
+  const listingsEndpoint = `/api/cards/listings/?is_sold=false`; // for listing count only
+  const listingPriceEndpoint = `/api/cards/listings/`; // for average price only
 
   let cards = [];
   let count = 0;
@@ -27,40 +28,58 @@ export default async function CardsPage({ searchParams }) {
   let previous = null;
 
   try {
-    const [cardsData, listingsData] = await Promise.all([
+    const [cardsData, listingsData, priceListingsData] = await Promise.all([
       fetchAPI(cardsEndpoint),
       fetchAPI(listingsEndpoint),
+      fetchAPI(listingPriceEndpoint),
     ]);
 
     const rawCards = cardsData.results || (Array.isArray(cardsData) ? cardsData : []);
-    const listings = listingsData.results || (Array.isArray(listingsData) ? listingsData : []);
+    const activeListings =
+      listingsData.results || (Array.isArray(listingsData) ? listingsData : []);
+    const priceListings =
+      priceListingsData.results || (Array.isArray(priceListingsData) ? priceListingsData : []);
 
-    const listingsMap = {};
+    // Map for active unsold listings count
+    const countMap = {};
 
-    for (const listing of listings) {
+    for (const listing of activeListings) {
       const cardId = listing.yugioh_card;
-
       if (!cardId) continue;
 
-      if (!listingsMap[cardId]) {
-        listingsMap[cardId] = {
+      if (!countMap[cardId]) {
+        countMap[cardId] = 0;
+      }
+
+      countMap[cardId] += 1;
+    }
+
+    // Map for average price from all listings
+    const priceMap = {};
+
+    for (const listing of priceListings) {
+      const cardId = listing.yugioh_card;
+      if (!cardId) continue;
+
+      if (!priceMap[cardId]) {
+        priceMap[cardId] = {
           count: 0,
           totalPrice: 0,
         };
       }
 
-      listingsMap[cardId].count += 1;
-      listingsMap[cardId].totalPrice += Number(listing.price || 0);
+      priceMap[cardId].count += 1;
+      priceMap[cardId].totalPrice += Number(listing.price || 0);
     }
 
     cards = rawCards.map((card) => {
-      const stats = listingsMap[card.id];
+      const priceStats = priceMap[card.id];
 
       return {
         ...card,
-        listing_count: stats?.count || 0,
-        avg_price: stats?.count
-          ? (stats.totalPrice / stats.count).toFixed(2)
+        listing_count: countMap[card.id] || 0,
+        avg_price: priceStats?.count
+          ? (priceStats.totalPrice / priceStats.count).toFixed(2)
           : null,
       };
     });
