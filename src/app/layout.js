@@ -9,6 +9,9 @@ export const metadata = {
     default: "TCG Egypt",
     template: "%s | TCG Egypt",
   },
+  icons:{
+    icon:"/favicon.ico"
+  },
   description: "Yu-Gi-Oh marketplace, meta updates, and tier lists for Egypt.",
   keywords: [
     "Yu-Gi-Oh Egypt",
