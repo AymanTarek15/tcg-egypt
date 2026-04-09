@@ -5,7 +5,7 @@ export default function Footer() {
   return (
     <footer className={styles.footer}>
       <Container>
-        <p>© 2026 YGO Egypt. All rights reserved.</p>
+        <p>© 2026 TCG Egypt. All rights reserved.</p>
       </Container>
     </footer>
   );
