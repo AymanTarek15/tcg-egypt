@@ -49,13 +49,13 @@ export default function RootLayout({ children }) {
     <html lang="en">
       <head>
         <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3480466222841830"
-     crossorigin="anonymous"></script>
+     crossOrigin="anonymous"></script>
+      </head>
       <body>
         <Navbar />
         <main>{children}</main>
         <Footer />
       </body>
-      </head>
     </html>
   );
 }
