@@ -136,6 +136,12 @@ export default function LoginPage() {
               onChange={handleChange}
             />
 
+            <div className={styles.forgotRow}>
+  <Link href="/forgot-password" className={styles.forgotLink}>
+    Forgot password?
+  </Link>
+</div>
+
             {error && <p className={styles.errorText}>{error}</p>}
 
             {showResendVerification && (
