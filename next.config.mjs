@@ -5,11 +5,11 @@ const nextConfig = {
   
   // 2. Tell Next.js you acknowledge you're using Turbopack 
   // (This silences the webpack vs turbopack error)
-  experimental: {
-    turbo: {
-      // If you had specific webpack aliases, they'd go here
-    },
-  },
+  // experimental: {
+  //   turbo: {
+  //     // If you had specific webpack aliases, they'd go here
+  //   },
+  // },
 };
 
 export default nextConfig;
