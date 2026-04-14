@@ -189,6 +189,30 @@
   color: white;
 }
 
+.listingActions {
+  display: flex;
+  gap: 8px;
+  margin-top: 10px;
+}
+
+.editBtn {
+  background: #3b82f6;
+  color: white;
+  border: none;
+  padding: 6px 10px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.deleteBtn {
+  background: #ef4444;
+  color: white;
+  border: none;
+  padding: 6px 10px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
 @media (max-width: 640px) {
   .phoneRow {
     grid-template-columns: 1fr;

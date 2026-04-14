@@ -162,6 +162,33 @@ export default function ProfilePage() {
     );
   }
 
+  async function handleDelete(slug) {
+  const confirmed = window.confirm("Are you sure you want to delete this listing?");
+  if (!confirmed) return;
+
+  try {
+    const token = getAccessToken();
+
+    const res = await fetch(`${API_BASE}/api/cards/listings/${slug}/`, {
+      method: "PATCH", // 👈 soft delete
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify({ is_active: false }),
+    });
+
+    if (!res.ok) {
+      throw new Error("Failed to delete listing.");
+    }
+
+    // remove from UI instantly
+    setListings((prev) => prev.filter((l) => l.slug !== slug));
+  } catch (err) {
+    alert("Failed to delete listing.");
+  }
+}
+
   return (
     <section className={styles.page}>
       <Container>
@@ -276,8 +303,7 @@ export default function ProfilePage() {
 
                     <div className={styles.listingBody}>
                       <h3>{listing.name}</h3>
-                      <p>{listing.price} EGP</p>
-                      <small>{listing.condition}</small>
+
                       <div className={styles.listingTopRow}>
                         <div className={styles.priceTag}>
                           {listing.price} EGP
@@ -292,6 +318,29 @@ export default function ProfilePage() {
                         >
                           {listing.is_sold ? "Sold" : "Available"}
                         </span>
+                      </div>
+
+                      <small>{listing.condition}</small>
+
+                      {/* 🔥 ACTIONS */}
+                      <div className={styles.listingActions}>
+                        <button
+                          className={styles.editBtn}
+                          onClick={() =>
+                            router.push(
+                              `/edit/${listing.slug}`,
+                            )
+                          }
+                        >
+                          Edit
+                        </button>
+
+                        <button
+                          className={styles.deleteBtn}
+                          onClick={() => handleDelete(listing.slug)}
+                        >
+                          Delete
+                        </button>
                       </div>
                     </div>
                   </div>
