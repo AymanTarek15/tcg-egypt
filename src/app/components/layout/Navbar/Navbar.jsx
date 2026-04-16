@@ -65,6 +65,7 @@ export default function Navbar() {
             {/* <Link href="/tier-lists" onClick={closeMenu}>Tier Lists</Link> */}
             {/* <Link href="/news" onClick={closeMenu}>News</Link> */}
             <Link href="/profile" onClick={closeMenu}>Profile</Link>
+            <Link href="/cart">Cart</Link>
 
             {loggedIn ? (
               <button

@@ -2,6 +2,7 @@ import Container from "@/app/components/layout/Container/Container";
 import { fetchAPI } from "@/lib/api";
 import styles from "./CardDetails.module.css";
 import Link from "next/link";
+import AddToCartButton from "@/app/components/cards/AddToCartButton/AddToCartButton";
 
 export const dynamic = "force-dynamic";
 export const revalidate = 0;
@@ -165,12 +166,13 @@ export default async function CardDetailPage({ params }) {
                               View Listing
                             </Link>
 
-                            <Link
+                            {/* <Link
                               href={`/checkout/${listing.slug}`}
                               className={styles.buyButton}
                             >
                               Buy Now
-                            </Link>
+                            </Link> */}
+                            <AddToCartButton  listingId={listing.id} />
                           </div>
                         </div>
                       </div>
