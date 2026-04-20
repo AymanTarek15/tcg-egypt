@@ -13,11 +13,14 @@ export default function ProfilePage() {
   const router = useRouter();
 
   const [profile, setProfile] = useState(null);
+  const [wallet, setWallet] = useState(null);
   const [listings, setListings] = useState([]);
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
+  const [packages, setPackages] = useState([]);
+  const [buyingPackageId, setBuyingPackageId] = useState(null);
 
   const [formData, setFormData] = useState({
     first_name: "",
@@ -31,6 +34,18 @@ export default function ProfilePage() {
     async function loadProfilePage() {
       const token = getAccessToken();
 
+      const packagesRes = await fetch(`${API_BASE}/api/points/packages/`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+        cache: "no-store",
+      });
+
+      let packagesData = [];
+      if (packagesRes.ok) {
+        packagesData = await packagesRes.json();
+      }
+
       if (!token) {
         router.push("/login");
         return;
@@ -40,7 +55,6 @@ export default function ProfilePage() {
         setLoading(true);
         setError("");
 
-        // ✅ Step 1: get profile FIRST
         const profileRes = await fetch(`${API_BASE}/api/users/me/`, {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -56,7 +70,18 @@ export default function ProfilePage() {
 
         const profileData = await profileRes.json();
 
-        // ✅ Step 2: fetch listings using USER ID
+        const walletRes = await fetch(`${API_BASE}/api/points/wallet/`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+          cache: "no-store",
+        });
+
+        let walletData = null;
+        if (walletRes.ok) {
+          walletData = await walletRes.json();
+        }
+
         const listingsRes = await fetch(
           `${API_BASE}/api/cards/listings/?seller=${profileData.username}`,
           {
@@ -69,6 +94,12 @@ export default function ProfilePage() {
         const listingsData = await listingsRes.json();
 
         setProfile(profileData);
+        setWallet(walletData);
+        setPackages(
+          Array.isArray(packagesData)
+            ? packagesData
+            : packagesData.results || []
+        );
 
         setFormData({
           first_name: profileData.first_name || "",
@@ -91,6 +122,16 @@ export default function ProfilePage() {
     }
 
     loadProfilePage();
+
+    function refreshWallet() {
+      loadProfilePage();
+    }
+
+    window.addEventListener("walletUpdated", refreshWallet);
+
+    return () => {
+      window.removeEventListener("walletUpdated", refreshWallet);
+    };
   }, [router]);
 
   function handleChange(e) {
@@ -152,6 +193,34 @@ export default function ProfilePage() {
     }
   }
 
+  async function handleDelete(slug) {
+    const confirmed = window.confirm(
+      "Are you sure you want to delete this listing?"
+    );
+    if (!confirmed) return;
+
+    try {
+      const token = getAccessToken();
+
+      const res = await fetch(`${API_BASE}/api/cards/listings/${slug}/`, {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({ is_active: false }),
+      });
+
+      if (!res.ok) {
+        throw new Error("Failed to delete listing.");
+      }
+
+      setListings((prev) => prev.filter((l) => l.slug !== slug));
+    } catch (err) {
+      alert("Failed to delete listing.");
+    }
+  }
+
   if (loading) {
     return (
       <section className={styles.page}>
@@ -162,34 +231,89 @@ export default function ProfilePage() {
     );
   }
 
-  async function handleDelete(slug) {
-  const confirmed = window.confirm("Are you sure you want to delete this listing?");
-  if (!confirmed) return;
+  // ✅ FIX ADDED HERE ONLY
+  const bestPackageId = (() => {
+    
+    if (!packages.length) return null;
+
+    let best = packages[0];
+    let bestValue = best.points / best.price;
+
+    for (let i = 1; i < packages.length; i++) {
+      const current = packages[i];
+      const currentValue = current.points / current.price;
+
+      if (currentValue > bestValue) {
+        best = current;
+        bestValue = currentValue;
+      }
+    }
+
+    return best.id;
+  })();
+
+  const cheapestPackage = packages.length ? packages[0] : null;
+
+const basePricePerPoint = cheapestPackage
+  ? cheapestPackage.price / cheapestPackage.points
+  : 0;
+
+  async function handleBuyPoints(packageId) {
+  const token = getAccessToken();
+
+  if (!token) {
+    router.push("/login");
+    return;
+  }
 
   try {
-    const token = getAccessToken();
+    setBuyingPackageId(packageId);
+    setError("");
 
-    const res = await fetch(`${API_BASE}/api/cards/listings/${slug}/`, {
-      method: "PATCH", // 👈 soft delete
+    console.log("Starting point purchase for package:", packageId);
+
+    const res = await fetch(`${API_BASE}/api/points/purchase/start/`, {
+      method: "POST",
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${token}`,
       },
-      body: JSON.stringify({ is_active: false }),
+      body: JSON.stringify({ package_id: packageId }),
     });
 
-    if (!res.ok) {
-      throw new Error("Failed to delete listing.");
+    const data = await res.json().catch(() => null);
+
+    console.log("Purchase start status:", res.status);
+    console.log("Purchase start response:", data);
+
+    if (res.status === 401) {
+      logoutUser();
+      window.dispatchEvent(new Event("authChanged"));
+      router.push("/login");
+      return;
     }
 
-    // remove from UI instantly
-    setListings((prev) => prev.filter((l) => l.slug !== slug));
+    if (!res.ok) {
+      setError(data?.detail || data?.message || "Failed to start point purchase.");
+      return;
+    }
+
+    if (data?.checkout_url) {
+      window.location.href = data.checkout_url;
+      return;
+    }
+
+    setError("No checkout URL was returned.");
   } catch (err) {
-    alert("Failed to delete listing.");
+    console.error("handleBuyPoints error:", err);
+    setError("Something went wrong while starting the purchase.");
+  } finally {
+    setBuyingPackageId(null);
   }
 }
 
   return (
+    // 👇 (rest of your file unchanged)
     <section className={styles.page}>
       <Container>
         <div className={styles.layout}>
@@ -206,6 +330,113 @@ export default function ProfilePage() {
                 </p>
               </div>
             )}
+
+            <div className={styles.balanceCard}>
+              <div className={styles.balanceHeader}>
+                <h2>My Points</h2>
+                <span className={styles.totalBadge}>
+                  Total {wallet?.total_points ?? 0}
+                </span>
+              </div>
+
+              <div className={styles.balanceGrid}>
+                <div className={styles.balanceItem}>
+                  <span className={styles.balanceLabel}>Free Points</span>
+                  <strong className={styles.freeValue}>
+                    {wallet?.free_points_balance ?? 0}
+                  </strong>
+                </div>
+
+                <div className={styles.balanceItem}>
+                  <span className={styles.balanceLabel}>Paid Points</span>
+                  <strong className={styles.paidValue}>
+                    {wallet?.paid_points_balance ?? 0}
+                  </strong>
+                </div>
+
+                {/* <div className={styles.balanceItem}>
+                  <span className={styles.balanceLabel}>Monthly Free Quota</span>
+                  <strong>{wallet?.free_points_monthly_quota ?? 0}</strong>
+                </div> */}
+
+                {/* <div className={styles.balanceItem}>
+                  <span className={styles.balanceLabel}>Last Reset</span>
+                  <strong>
+                    {wallet?.free_points_last_reset_at
+                      ? new Date(wallet.free_points_last_reset_at).toLocaleDateString()
+                      : "—"}
+                  </strong>
+                </div> */}
+              </div>
+            </div>
+
+            <div className={styles.packagesCard}>
+  <div className={styles.packagesHeader}>
+    <h2>Buy Points</h2>
+    <p className={styles.packagesText}>
+      Buy paid points to boost listings and unlock seller features.
+    </p>
+  </div>
+
+  {packages.length === 0 ? (
+    <p className={styles.stateText}>No point packages available right now.</p>
+  ) : (
+    <div className={styles.packagesGrid}>
+  {packages.map((pkg) => {
+  const isBest = pkg.id === bestPackageId;
+  const packagePricePerPoint = pkg.price / pkg.points;
+  const savePercent =
+  basePricePerPoint > 0
+    ? Math.max(
+        0,
+        Math.round(
+          ((basePricePerPoint - packagePricePerPoint) / basePricePerPoint) * 100
+        )
+      )
+    : 0;
+
+  return (
+    <div
+      key={pkg.id}
+      className={`${styles.packageItem} ${
+        isBest ? styles.featuredPackage : ""
+      }`}
+    >
+      {isBest && <div className={styles.bestBadge}>Best Value</div>}
+
+      {savePercent > 0 && (
+  <div className={styles.saveBadge}>Save {savePercent}%</div>
+)}
+
+      <h3 className={styles.packageTitle}>{pkg.name}</h3>
+
+      <div className={styles.packagePoints}>
+        {pkg.points}
+        <span> Points</span>
+      </div>
+
+      <div className={styles.packagePrice}>{pkg.price} EGP</div>
+
+      <div className={styles.valueText}>
+        {(pkg.points / pkg.price).toFixed(2)} pts / EGP
+      </div>
+
+      <button
+  type="button"
+  className={`${styles.buyBtn} ${
+    isBest ? styles.buyBtnFeatured : ""
+  }`}
+  onClick={() => handleBuyPoints(pkg.id)}
+  disabled={buyingPackageId === pkg.id}
+>
+  {buyingPackageId === pkg.id ? "Processing..." : "Buy Now"}
+</button>
+    </div>
+  );
+})}
+</div>
+  )}
+</div>
 
             <form className={styles.form} onSubmit={handleSave}>
               <div className={styles.grid}>
@@ -322,20 +553,17 @@ export default function ProfilePage() {
 
                       <small>{listing.condition}</small>
 
-                      {/* 🔥 ACTIONS */}
                       <div className={styles.listingActions}>
                         <button
+                          type="button"
                           className={styles.editBtn}
-                          onClick={() =>
-                            router.push(
-                              `/edit/${listing.slug}`,
-                            )
-                          }
+                          onClick={() => router.push(`/edit/${listing.slug}`)}
                         >
                           Edit
                         </button>
 
                         <button
+                          type="button"
                           className={styles.deleteBtn}
                           onClick={() => handleDelete(listing.slug)}
                         >

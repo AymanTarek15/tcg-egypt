@@ -5,12 +5,18 @@ import styles from "./AddToCartButton.module.css";
 
 const API_BASE = process.env.NEXT_PUBLIC_API_BASE_URL;
 
-export default function AddToCartButton({ listingId, className = "" }) {
+export default function AddToCartButton({
+  listingId,
+  isSold = false,
+  className = "",
+}) {
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState("");
   const [success, setSuccess] = useState(false);
 
   const handleAddToCart = async () => {
+    if (isSold) return;
+
     try {
       setLoading(true);
       setMessage("");
@@ -52,21 +58,28 @@ export default function AddToCartButton({ listingId, className = "" }) {
   };
 
   return (
+    <div>
     <div className={`${styles.wrapper} ${className}`}>
       <button
         type="button"
         onClick={handleAddToCart}
-        disabled={loading}
+        disabled={loading || isSold|| success}
         className={`${styles.button} ${success ? styles.success : ""}`}
       >
-        {loading ? "Adding..." : success ? "Added" : "Add to Cart"}
+        {isSold ? "Sold Out" : loading ? "Adding..." : success ? "Added" : "Add to Cart"}
       </button>
 
       {message && (
-        <p className={`${styles.message} ${success ? styles.successText : styles.errorText}`}>
+        <p
+          className={`${styles.message} ${
+            success ? styles.successText : styles.errorText
+          }`}
+        >
           {message}
         </p>
       )}
+    </div>
+    
     </div>
   );
 }

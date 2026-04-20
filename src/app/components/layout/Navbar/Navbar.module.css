@@ -58,6 +58,42 @@
   color: #ff3b3b;
 }
 
+.pointsWrap {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.freeBadge,
+.paidBadge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 7px 10px;
+  border-radius: 999px;
+  font-size: 0.8rem;
+  font-weight: 700;
+  line-height: 1;
+  white-space: nowrap;
+}
+
+.freeBadge {
+  background: rgba(85, 160, 100, 0.16);
+  border: 1px solid rgba(85, 160, 100, 0.32);
+  color: #d9f5df;
+}
+
+.paidBadge {
+  background: rgba(212, 163, 70, 0.16);
+  border: 1px solid rgba(212, 163, 70, 0.34);
+  color: #f6deb0;
+}
+
+.pointsLoading {
+  font-size: 0.82rem;
+  color: #b8bec9;
+}
+
 @media (max-width: 900px) {
   .menuBtn {
     display: block;
@@ -82,4 +118,7 @@
   .active {
     display: flex;
   }
+  .pointsWrap {
+  flex-wrap: wrap;
+}
 }

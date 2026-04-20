@@ -213,15 +213,277 @@
   cursor: pointer;
 }
 
+.balanceCard {
+  margin-bottom: 24px;
+  background: #1c2230;
+  border: 1px solid #2b3240;
+  border-radius: 18px;
+  padding: 18px;
+}
+
+.balanceHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.balanceHeader h2 {
+  margin: 0;
+  color: #f3f4f6;
+  font-size: 1.1rem;
+}
+
+.totalBadge {
+  background: #8b5a2b;
+  color: white;
+  border-radius: 999px;
+  padding: 7px 12px;
+  font-weight: 700;
+  font-size: 0.9rem;
+}
+
+.balanceGrid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(180px, 1fr));
+  gap: 14px;
+}
+
+.balanceItem {
+  background: #0f1117;
+  border: 1px solid #2b3240;
+  border-radius: 14px;
+  padding: 14px;
+  display: grid;
+  gap: 8px;
+}
+
+.balanceLabel {
+  color: #9ca3af;
+  font-size: 0.92rem;
+}
+
+.balanceItem strong {
+  color: #f3f4f6;
+  font-size: 1.2rem;
+}
+
+.freeValue {
+  color: #8ee6a2;
+}
+
+.paidValue {
+  color: #f2cf7b;
+}
+.packagesCard {
+  margin-bottom: 24px;
+  background: #1c2230;
+  border: 1px solid #2b3240;
+  border-radius: 18px;
+  padding: 18px;
+}
+
+.packagesHeader {
+  margin-bottom: 16px;
+}
+
+.packagesHeader h2 {
+  margin: 0 0 8px;
+  color: #f3f4f6;
+}
+
+.packagesText {
+  margin: 0;
+  color: #9ca3af;
+}
+
+.packagesGrid {
+  display: grid;
+  text-align: center;
+  grid-template-columns: repeat(3, minmax(180px, 1fr));
+  gap: 14px;
+}
+
+.packageItem {
+  background: #0f1117;
+  border: 1px solid #2b3240;
+  border-radius: 16px;
+  padding: 16px;
+  display: grid;
+  gap: 12px;
+}
+
+.packageItem h3 {
+  margin: 0;
+  color: #f3f4f6;
+}
+
+.packagePoints {
+  color: #f2cf7b;
+  font-size: 1.15rem;
+  font-weight: 700;
+}
+
+.packagePrice {
+  color: #d9dce3;
+  font-weight: 600;
+}
+
+.buyBtn {
+  height: 44px;
+  border: none;
+  border-radius: 12px;
+  background: #8b5a2b;
+  color: white;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.buyBtn:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+/* GRID */
+.packagesGrid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(200px, 1fr));
+  gap: 18px;
+  margin-top: 10px;
+}
+
+/* CARD */
+.packageItem {
+  position: relative;
+  background: linear-gradient(145deg, #171c27, #1c2230);
+  border: 1px solid #2b3240;
+  border-radius: 20px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: end;
+  gap: 16px;
+  text-align: center;
+  transition: 0.25s ease;
+}
+
+/* HOVER EFFECT */
+.packageItem:hover {
+  transform: translateY(-6px);
+  border-color: #8b5a2b;
+  box-shadow: 0 10px 30px rgba(139, 90, 43, 0.25);
+}
+
+/* FEATURED (middle package) */
+.featuredPackage {
+  border: 2px solid #d4a34d;
+  background: linear-gradient(160deg, #1f2432, #2a3142);
+  box-shadow: 0 0 25px rgba(212, 163, 70, 0.3);
+  transform: scale(1.05);
+}
+
+/* BADGE */
+.bestBadge {
+  position: absolute;
+  top: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #d4a34d;
+  color: #0f1117;
+  padding: 6px 12px;
+  border-radius: 999px;
+  font-size: 0.75rem;
+  font-weight: 800;
+}
+
+/* TITLE */
+.packageTitle {
+  color: #f3f4f6;
+  font-size: 1.1rem;
+  margin: 0;
+}
+
+/* POINTS */
+.packagePoints {
+  font-size: 2rem;
+  font-weight: 900;
+  color: #f2cf7b;
+}
+
+.packagePoints span {
+  font-size: 0.9rem;
+  color: #c7ced9;
+}
+
+/* PRICE */
+.packagePrice {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: #ffffff;
+}
+
+/* BUTTON */
+.buyBtn {
+  height: 46px;
+  border: none;
+  border-radius: 12px;
+  background: #8b5a2b;
+  color: white;
+  font-weight: 700;
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+
+.buyBtn:hover {
+  background: #a36a35;
+}
+
+/* FEATURED BUTTON */
+.buyBtnFeatured {
+  background: #d4a34d;
+  color: #0f1117;
+}
+
+.buyBtnFeatured:hover {
+  background: #f2cf7b;
+}
+
+.saveBadge {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  background: #1f7a3f;
+  color: white;
+  padding: 6px 10px;
+  border-radius: 999px;
+  font-size: 0.72rem;
+  font-weight: 800;
+  line-height: 1;
+}
+
 @media (max-width: 640px) {
   .phoneRow {
     grid-template-columns: 1fr;
   }
 }
 
-@media (max-width: 700px) {
+
+  @media (max-width: 700px) {
   .grid {
     grid-template-columns: 1fr;
+  }
+
+  .balanceGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .packagesGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .balanceHeader {
+    flex-direction: column;
+    align-items: flex-start;
   }
 
   .listingItem {
@@ -231,5 +493,8 @@
   .listingImage {
     width: 120px;
     height: 160px;
+  }
+  .featuredPackage {
+    transform: none;
   }
 }

@@ -140,7 +140,8 @@ export default async function CardDetailPage({ params }) {
 
                             <div className={styles.listingMetaItem}>
                               <strong>Quantity</strong>
-                              <span>{listing.quantity}</span>
+                              {/* <span>{listing.quantity}</span> */}
+                              <span>{listing.is_sold ? "Sold" : "Available"}</span>
                             </div>
 
                             {listing.rarity && (
@@ -172,7 +173,7 @@ export default async function CardDetailPage({ params }) {
                             >
                               Buy Now
                             </Link> */}
-                            <AddToCartButton  listingId={listing.id} />
+                            <AddToCartButton listingId={listing.id} isSold={listing.is_sold}  />
                           </div>
                         </div>
                       </div>

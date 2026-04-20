@@ -2,6 +2,7 @@ import Container from "@/app/components/layout/Container/Container";
 import { fetchAPI } from "@/lib/api";
 import styles from "./ListingDetails.module.css";
 import Link from "next/link";
+import AddToCartButton from "@/app/components/cards/AddToCartButton/AddToCartButton";
 
 export const dynamic = "force-dynamic";
 export const revalidate = 0;
@@ -102,9 +103,10 @@ console.log(listing.name);
             )}
 
             <div className={styles.actions}>
-              <Link href={`/checkout/${listing.slug}`} className={styles.buyButton}>
+              {/* <Link href={`/checkout/${listing.slug}`} className={styles.buyButton}>
   Buy Now
-</Link>
+</Link> */}
+<AddToCartButton listingId={listing.id} isSold={listing.is_sold} className={styles.addToCart} />
             </div>
           </div>
         </div>

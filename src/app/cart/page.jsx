@@ -369,7 +369,7 @@ export default function CartPage() {
                         </div>
 
                         <div className={styles.itemActions}>
-                          <div className={styles.qtyBox}>
+                          {/* <div className={styles.qtyBox}>
                             <button
                               className={styles.qtyBtn}
                               onClick={() => handleQuantityChange(item.id, item.quantity - 1)}
@@ -383,7 +383,8 @@ export default function CartPage() {
                             >
                               +
                             </button>
-                          </div>
+                          </div> */}
+                          <p className={styles.itemMeta}>Quantity: 1</p>
 
                           <button
                             className={styles.removeBtn}
