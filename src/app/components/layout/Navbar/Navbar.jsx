@@ -6,6 +6,8 @@ import { useRouter } from "next/navigation";
 import Container from "../Container/Container";
 import styles from "./Navbar.module.css";
 import { isLoggedIn, logoutUser } from "@/lib/auth";
+import Image from "next/image";
+
 
 const API_BASE = process.env.NEXT_PUBLIC_API_BASE_URL;
 
@@ -98,9 +100,19 @@ export default function Navbar() {
     <header className={styles.navbar}>
       <Container>
         <div className={styles.wrapper}>
-          <Link href="/" className={styles.logo} onClick={closeMenu}>
+          {/* <Link href="/" className={styles.logo} onClick={closeMenu}>
             TCG Egypt
-          </Link>
+          </Link> */}
+
+          <Link href="/" className={styles.logo} onClick={closeMenu}>
+  <Image
+    src="/Logo.png"
+    alt="TCG Egypt Logo"
+    width={120}
+    height={70}
+    priority
+  />
+</Link>
 
           <button
             type="button"
