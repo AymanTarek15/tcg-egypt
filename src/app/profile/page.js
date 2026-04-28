@@ -376,6 +376,9 @@ const basePricePerPoint = cheapestPackage
     <p className={styles.packagesText}>
       Buy paid points to boost listings and unlock seller features.
     </p>
+    <p className={styles.packagesText}>
+      We also accept instapay, vodafone cash and cash payments, Contact us first through Email or whatsapp.
+    </p>
   </div>
 
   {packages.length === 0 ? (
@@ -421,7 +424,7 @@ const basePricePerPoint = cheapestPackage
         {(pkg.points / pkg.price).toFixed(2)} pts / EGP
       </div>
 
-      <button
+      {/* <button
   type="button"
   className={`${styles.buyBtn} ${
     isBest ? styles.buyBtnFeatured : ""
@@ -430,7 +433,7 @@ const basePricePerPoint = cheapestPackage
   disabled={buyingPackageId === pkg.id}
 >
   {buyingPackageId === pkg.id ? "Processing..." : "Buy Now"}
-</button>
+</button> */}
     </div>
   );
 })}

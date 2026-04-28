@@ -109,7 +109,7 @@ export default function Navbar() {
     src="/Logo.png"
     alt="TCG Egypt Logo"
     width={120}
-    height={70}
+    height={90}
     priority
   />
 </Link>
