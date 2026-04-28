@@ -11,10 +11,10 @@ export default function Footer() {
         </div>
 
         <div className={styles.links}>
-          <Link href="/privacy-policy">Privacy Policy</Link>
-          <Link href="/terms">Terms of Service</Link>
-          <Link href="/refund-policy">Refund Policy</Link>
-          <Link href="/shipping">Shipping Policy</Link>
+          {/* <Link href="/privacy-policy">Privacy Policy</Link> */}
+          {/* <Link href="/terms">Terms of Service</Link> */}
+          {/* <Link href="/refund-policy">Refund Policy</Link> */}
+          {/* <Link href="/shipping">Shipping Policy</Link> */}
           {/* <Link href="/cookie-policy">Cookie Policy</Link> */}
           <Link href="/about">About Us</Link>
           <Link href="/contact">Contact Us</Link>
