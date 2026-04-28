@@ -131,7 +131,7 @@ export default function Navbar() {
             <Link href="/cart" onClick={closeMenu}>Cart</Link>
 
             {loggedIn && (
-              <Link href="/points" onClick={closeMenu} className={styles.pointsWrap}>
+              <Link href="#" onClick={closeMenu} className={styles.pointsWrap}>
                 {walletLoading ? (
                   <span className={styles.pointsLoading}>Loading...</span>
                 ) : (
