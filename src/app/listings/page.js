@@ -59,7 +59,7 @@ export default async function ListingsPage({ searchParams }) {
             <div className={styles.grid}>
               {listings.map((listing) => (
                 <Link
-                  href={`/cards/listings/${listing.slug}`}
+                  href={`/listings/${listing.slug}`}
                   key={listing.id}
                   className={styles.card}
                 >
