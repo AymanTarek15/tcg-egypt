@@ -18,6 +18,7 @@
 .imageWrap {
   /* aspect-ratio: 0.72 / 1; */
   background: #10141c;
+  
 }
 
 .image {
@@ -28,6 +29,9 @@
 
 .info {
   padding: 16px;
+  display: flex;
+  flex-direction: column;
+  flex: 1; 
 }
 
 .info h3 {
