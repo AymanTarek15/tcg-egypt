@@ -124,6 +124,7 @@ export default function Navbar() {
           </button>
 
           <nav className={`${styles.navlinks} ${open ? styles.active : ""}`}>
+            <Link href="/listings" onClick={closeMenu}>Listings</Link>
             <Link href="/cards" onClick={closeMenu}>Cards</Link>
             <Link href="/sell" onClick={closeMenu}>Sell</Link>
             <Link href="/profile" onClick={closeMenu}>Profile</Link>
