@@ -1,5 +1,5 @@
 import Container from "@/app/components/layout/Container/Container";
-import styles from "./Loading.module.css";
+import styles from "./LoadingSkeleton.module.css";
 
 export default function Loading() {
   return (

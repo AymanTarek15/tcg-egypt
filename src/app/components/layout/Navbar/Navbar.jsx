@@ -6,7 +6,6 @@ import { useRouter } from "next/navigation";
 import Container from "../Container/Container";
 import styles from "./Navbar.module.css";
 import { isLoggedIn, logoutUser } from "@/lib/auth";
-import Image from "next/image";
 
 
 const API_BASE = process.env.NEXT_PUBLIC_API_BASE_URL;
@@ -104,15 +103,31 @@ export default function Navbar() {
             TCG Egypt
           </Link> */}
 
-          <Link href="/" className={styles.logo} onClick={closeMenu}>
-  <Image
-    src="/Logo.png"
-    alt="TCG Egypt Logo"
-    width={120}
-    height={90}
-    priority
-  />
-</Link>
+          <Link href="/" className={styles.logo} onClick={closeMenu} aria-label="TCG Egypt home">
+            <svg
+              className={styles.logoMark}
+              viewBox="0 0 56 50"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+              aria-hidden="true"
+            >
+              <g transform="rotate(-20 28 44)">
+                <rect x="17" y="10" width="22" height="32" rx="4" fill="#2b3442" stroke="#3c465a" strokeWidth="1.2" />
+              </g>
+              <g transform="rotate(20 28 44)">
+                <rect x="17" y="10" width="22" height="32" rx="4" fill="#586274" stroke="#6b7791" strokeWidth="1.2" />
+              </g>
+              <rect x="17" y="8" width="22" height="32" rx="4" fill="#ff3b3b" />
+              <rect x="20" y="12" width="16" height="3" rx="1.5" fill="#ffffff" fillOpacity="0.4" />
+              <circle cx="28" cy="27" r="4" fill="#ffffff" fillOpacity="0.85" />
+            </svg>
+            <span className={styles.wordmark}>
+              <span className={styles.word}>
+                TC<span className={styles.g}>G</span>
+              </span>
+              <span className={styles.wordSub}>EGYPT</span>
+            </span>
+          </Link>
 
           <button
             type="button"
