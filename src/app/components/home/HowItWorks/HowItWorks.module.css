@@ -1,0 +1,89 @@
+.section {
+  padding: 72px 0;
+  background: #0d0f14;
+}
+
+.head {
+  text-align: center;
+  margin-bottom: 44px;
+}
+
+.eyebrow {
+  display: inline-block;
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: #ff6a6a;
+  margin-bottom: 12px;
+}
+
+.title {
+  font-size: clamp(1.6rem, 3.5vw, 2.4rem);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  margin: 0;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 20px;
+}
+
+.card {
+  position: relative;
+  background: #151a24;
+  border: 1px solid #262d3a;
+  border-radius: 18px;
+  padding: 28px;
+  transition: transform 0.25s ease, border-color 0.25s ease;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  border-color: rgba(255, 59, 59, 0.35);
+}
+
+.top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 18px;
+}
+
+.iconWrap {
+  width: 50px;
+  height: 50px;
+  border-radius: 14px;
+  display: grid;
+  place-items: center;
+  color: #fff;
+  background: linear-gradient(135deg, #ff3b3b, #ff6a3d);
+  box-shadow: 0 8px 20px rgba(255, 59, 59, 0.3);
+}
+
+.iconWrap svg {
+  width: 24px;
+  height: 24px;
+}
+
+.num {
+  font-size: 2rem;
+  font-weight: 800;
+  color: #222a37;
+  line-height: 1;
+}
+
+.card h3 {
+  font-size: 1.2rem;
+  font-weight: 700;
+  margin: 0 0 8px;
+}
+
+.card p {
+  color: #99a1af;
+  font-size: 0.94rem;
+  line-height: 1.6;
+  margin: 0;
+}
