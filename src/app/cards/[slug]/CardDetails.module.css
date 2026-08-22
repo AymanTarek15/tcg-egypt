@@ -20,6 +20,9 @@
   display: flex;
   justify-content: center;
   align-items: flex-start;
+  position: sticky;
+  top: 90px;
+  align-self: start;
 }
 
 .mainImage {
@@ -38,11 +41,91 @@
   gap: 14px;
 }
 
+.backLink {
+  color: #99a1af;
+  font-size: 0.88rem;
+  text-decoration: none;
+  transition: color 0.2s ease;
+  width: fit-content;
+}
+
+.backLink:hover {
+  color: #ff6a6a;
+}
+
 .title {
   margin: 0;
   font-size: 2rem;
   line-height: 1.2;
   color: #f3f4f6;
+}
+
+.badgeRow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.typeBadge {
+  padding: 5px 12px;
+  border-radius: 999px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  background: rgba(255, 59, 59, 0.12);
+  border: 1px solid rgba(255, 59, 59, 0.28);
+  color: #ff8080;
+}
+
+.archetypeBadge {
+  padding: 5px 12px;
+  border-radius: 999px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid #2f3849;
+  color: #c6ccd6;
+}
+
+.availability {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 6px;
+  padding: 14px 18px;
+  border-radius: 14px;
+  background: #1c2230;
+  border: 1px solid #2b3240;
+}
+
+.availText {
+  color: #c6ccd6;
+  font-size: 0.95rem;
+}
+
+.availText strong {
+  color: #f3f4f6;
+}
+
+.availDot {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: #4ab376;
+  box-shadow: 0 0 0 3px rgba(74, 179, 118, 0.22);
+}
+
+.availLink {
+  margin-left: auto;
+  color: #ff6a6a;
+  font-weight: 600;
+  font-size: 0.9rem;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.availLink:hover {
+  color: #ff8f8f;
 }
 
 .description {
@@ -302,6 +385,8 @@
 
   .imagePanel {
     justify-content: center;
+    position: static;
+    top: auto;
   }
 
   .mainImage {

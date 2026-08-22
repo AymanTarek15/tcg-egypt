@@ -67,12 +67,87 @@ export default async function CardDetailPage({ params }) {
           </div>
 
           <div className={styles.infoPanel}>
+            <Link href="/cards" className={styles.backLink}>
+              ← Back to cards
+            </Link>
+
             <h1 className={styles.title}>{card.name}</h1>
-            <p className={styles.description}>{card.desc}</p>
+
+            <div className={styles.badgeRow}>
+              <span className={styles.typeBadge}>
+                {card.human_readable_card_type || card.card_type}
+              </span>
+              {card.archetype && (
+                <span className={styles.archetypeBadge}>{card.archetype}</span>
+              )}
+            </div>
+
+            {card.desc && <p className={styles.description}>{card.desc}</p>}
+
+            {(card.attribute ||
+              card.race ||
+              card.level != null ||
+              card.atk != null ||
+              card.defense != null) && (
+              <div className={styles.metaGrid}>
+                {card.attribute && (
+                  <div className={styles.metaCard}>
+                    <span className={styles.metaLabel}>Attribute</span>
+                    <span className={styles.metaValue}>{card.attribute}</span>
+                  </div>
+                )}
+                {card.race && (
+                  <div className={styles.metaCard}>
+                    <span className={styles.metaLabel}>Type</span>
+                    <span className={styles.metaValue}>{card.race}</span>
+                  </div>
+                )}
+                {card.level != null && (
+                  <div className={styles.metaCard}>
+                    <span className={styles.metaLabel}>Level / Rank</span>
+                    <span className={styles.metaValue}>{card.level}</span>
+                  </div>
+                )}
+                {card.atk != null && (
+                  <div className={styles.metaCard}>
+                    <span className={styles.metaLabel}>ATK</span>
+                    <span className={styles.metaValue}>{card.atk}</span>
+                  </div>
+                )}
+                {card.defense != null && (
+                  <div className={styles.metaCard}>
+                    <span className={styles.metaLabel}>DEF</span>
+                    <span className={styles.metaValue}>{card.defense}</span>
+                  </div>
+                )}
+              </div>
+            )}
+
+            <div className={styles.availability}>
+              {totalListings > 0 ? (
+                <>
+                  <span className={styles.availDot} />
+                  <span className={styles.availText}>
+                    <strong>{totalListings}</strong> listing
+                    {totalListings === 1 ? "" : "s"} available
+                  </span>
+                  <a href="#versions" className={styles.availLink}>
+                    View listings ↓
+                  </a>
+                </>
+              ) : (
+                <>
+                  <span className={styles.availText}>Not listed yet.</span>
+                  <Link href="/sell" className={styles.availLink}>
+                    Have this card? Sell it →
+                  </Link>
+                </>
+              )}
+            </div>
           </div>
         </div>
 
-        <div className={styles.listingsSection}>
+        <div className={styles.listingsSection} id="versions">
           <div className={styles.sectionHeader}>
             <h2 className={styles.sectionTitle}>Card Versions</h2>
             <span className={styles.listingCountBadge}>
