@@ -7,6 +7,45 @@ import AddToCartButton from "@/app/components/cards/AddToCartButton/AddToCartBut
 export const dynamic = "force-dynamic";
 export const revalidate = 0;
 
+export async function generateMetadata({ params }) {
+  const { slug } = await params;
+
+  try {
+    const card = await fetchAPI(`/api/cards/database/${slug}/`);
+    const type =
+      card.human_readable_card_type || card.card_type || "Yu-Gi-Oh card";
+    const image = card.main_image || card.images?.[0]?.image_url;
+    const snippet = card.desc
+      ? card.desc.slice(0, 150)
+      : `Find listings and prices for ${card.name}.`;
+
+    return {
+      title: `${card.name} — ${type}`,
+      description:
+        `${card.name} (${type}) on TCG Egypt. ${snippet} Compare prices and buy from local sellers.`.slice(
+          0,
+          300
+        ),
+      alternates: { canonical: `/cards/${slug}` },
+      openGraph: {
+        title: `${card.name} | TCG Egypt`,
+        description: snippet,
+        url: `/cards/${slug}`,
+        type: "website",
+        images: image ? [{ url: image, alt: card.name }] : undefined,
+      },
+      twitter: {
+        card: "summary_large_image",
+        title: `${card.name} | TCG Egypt`,
+        description: snippet,
+        images: image ? [image] : undefined,
+      },
+    };
+  } catch {
+    return { title: "Card not found" };
+  }
+}
+
 export default async function CardDetailPage({ params }) {
   const { slug } = await params;
 
@@ -54,8 +93,39 @@ export default async function CardDetailPage({ params }) {
     0
   );
 
+  const prices = listings
+    .map((l) => Number(l.price))
+    .filter((p) => Number.isFinite(p) && p > 0);
+  const lowestPrice = prices.length ? Math.min(...prices) : null;
+
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "Product",
+    name: card.name,
+    image: card.main_image || card.images?.[0]?.image_url,
+    description: card.desc || `${card.name} — Yu-Gi-Oh card on TCG Egypt.`,
+    category: card.human_readable_card_type || card.card_type,
+    brand: { "@type": "Brand", name: "Yu-Gi-Oh" },
+    url: `https://tcg-egypt.com/cards/${slug}`,
+    ...(lowestPrice
+      ? {
+          offers: {
+            "@type": "AggregateOffer",
+            priceCurrency: "EGP",
+            lowPrice: lowestPrice,
+            offerCount: totalListings,
+            availability: "https://schema.org/InStock",
+          },
+        }
+      : {}),
+  };
+
   return (
     <section className={styles.page}>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
       <Container>
         <div className={styles.cardSection}>
           <div className={styles.imagePanel}>

@@ -9,6 +9,23 @@ import CardsToolbar from "./CardsToolbar";
 import Pagination from "./Pagination";
 import { fetchAPI } from "@/lib/api";
 
+export async function generateMetadata({ searchParams }) {
+  const params = await searchParams;
+  const type = params?.card_type;
+  const search = params?.search;
+
+  let title = "Browse Yu-Gi-Oh Cards";
+  if (search) title = `Search results for "${search}"`;
+  else if (type) title = `${type} Cards`;
+
+  return {
+    title,
+    description:
+      "Browse and search 13,000+ Yu-Gi-Oh cards with live prices and seller listings on TCG Egypt.",
+    alternates: { canonical: "/cards" },
+  };
+}
+
 export default async function CardsPage({ searchParams }) {
   const params = await searchParams;
 

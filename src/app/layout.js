@@ -6,13 +6,11 @@ import "./globals.css";
 export const metadata = {
   metadataBase: new URL("https://tcg-egypt.com"),
   title: {
-    default: "TCG Egypt",
+    default: "TCG Egypt — Buy, Sell & Track Yu-Gi-Oh Cards in Egypt",
     template: "%s | TCG Egypt",
   },
-  icons:{
-    icon:"/favicon.ico"
-  },
-  description: "Yu-Gi-Oh marketplace, meta updates, and tier lists for Egypt.",
+  description:
+    "Egypt's Yu-Gi-Oh marketplace: browse 13,000+ cards, compare live prices, buy and sell with local collectors, and follow the meta and tier lists.",
   keywords: [
     "Yu-Gi-Oh Egypt",
     "YGO Egypt",
