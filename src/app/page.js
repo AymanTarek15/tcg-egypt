@@ -1,4 +1,5 @@
 import Hero from "@/app/components/home/Hero/Hero";
+import Categories from "@/app/components/home/Categories/Categories";
 import HowItWorks from "@/app/components/home/HowItWorks/HowItWorks";
 import FeaturedCards from "@/app/components/home/FeaturedCards/FeaturedCards";
 import LatestArticles from "@/app/components/home/LatestArticles/LatestArticles";
@@ -79,6 +80,7 @@ export default async function HomePage() {
   return (
     <>
       <Hero cards={heroCards} />
+      <Categories />
       <FeaturedCards cards={featuredCards} />
       <HowItWorks />
       {/* <TierListPreview /> */}

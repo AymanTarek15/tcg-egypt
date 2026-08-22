@@ -1,0 +1,118 @@
+.page {
+  padding: 60px 0;
+  background: #0f1117;
+  min-height: 100vh;
+}
+
+.cardSection {
+  display: grid;
+  grid-template-columns: 300px 1fr;
+  gap: 40px;
+  background: #171c27;
+  border: 1px solid #2b3240;
+  border-radius: 24px;
+  padding: 28px;
+}
+
+.image {
+  width: 100%;
+  aspect-ratio: 59 / 86;
+  border-radius: 18px;
+  background: #1c2230;
+}
+
+.info {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.line {
+  height: 14px;
+  border-radius: 7px;
+  background: #1c2230;
+}
+
+.title {
+  height: 30px;
+  width: 60%;
+}
+
+.w40 { width: 40%; height: 11px; }
+.w60 { width: 60%; }
+.w80 { width: 80%; }
+.w90 { width: 90%; }
+
+.badges {
+  display: flex;
+  gap: 8px;
+}
+
+.badge {
+  width: 100px;
+  height: 26px;
+  border-radius: 999px;
+  background: #1c2230;
+}
+
+.metaGrid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(160px, 1fr));
+  gap: 14px;
+  margin-top: 8px;
+}
+
+.metaCard {
+  height: 62px;
+  border-radius: 16px;
+  background: #1c2230;
+}
+
+/* Shimmer */
+.image,
+.line,
+.badge,
+.metaCard {
+  position: relative;
+  overflow: hidden;
+}
+
+.image::after,
+.line::after,
+.badge::after,
+.metaCard::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  transform: translateX(-100%);
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.06) 50%,
+    transparent 100%
+  );
+  animation: shimmer 1.4s infinite;
+}
+
+@keyframes shimmer {
+  100% { transform: translateX(100%); }
+}
+
+@media (max-width: 900px) {
+  .cardSection {
+    grid-template-columns: 1fr;
+  }
+  .image {
+    max-width: 260px;
+    margin: 0 auto;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .image::after,
+  .line::after,
+  .badge::after,
+  .metaCard::after {
+    animation: none;
+  }
+}

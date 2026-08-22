@@ -1,0 +1,145 @@
+.section {
+  padding: 64px 0 8px;
+  background: #0d0f14;
+}
+
+.head {
+  margin-bottom: 28px;
+}
+
+.eyebrow {
+  display: inline-block;
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: #ff6a6a;
+  margin-bottom: 10px;
+}
+
+.title {
+  font-size: clamp(1.5rem, 3.2vw, 2.2rem);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  margin: 0;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+  gap: 16px;
+}
+
+.tile {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 20px;
+  border-radius: 18px;
+  background: #151a24;
+  border: 1px solid #262d3a;
+  text-decoration: none;
+  overflow: hidden;
+  transition: transform 0.25s ease, border-color 0.25s ease;
+}
+
+/* colored wash that intensifies on hover, tinted per type */
+.tile::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  opacity: 0.5;
+  background: radial-gradient(
+    120% 120% at 100% 0%,
+    var(--tint) 0%,
+    transparent 55%
+  );
+  transition: opacity 0.25s ease;
+  pointer-events: none;
+}
+
+.tile:hover {
+  transform: translateY(-5px);
+  border-color: var(--edge);
+}
+
+.tile:hover::before {
+  opacity: 1;
+}
+
+.iconWrap {
+  position: relative;
+  z-index: 1;
+  flex: none;
+  width: 52px;
+  height: 52px;
+  border-radius: 14px;
+  display: grid;
+  place-items: center;
+  color: #fff;
+  background: var(--grad);
+  box-shadow: 0 8px 20px var(--tint);
+}
+
+.iconWrap svg {
+  width: 26px;
+  height: 26px;
+}
+
+.body {
+  position: relative;
+  z-index: 1;
+  flex: 1;
+  min-width: 0;
+}
+
+.body h3 {
+  margin: 0 0 3px;
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #f3f5f9;
+}
+
+.body p {
+  margin: 0;
+  font-size: 0.82rem;
+  color: #99a1af;
+  line-height: 1.4;
+}
+
+.arrow {
+  position: relative;
+  z-index: 1;
+  flex: none;
+  color: #8a92a0;
+  font-size: 1.2rem;
+  transition: transform 0.25s ease, color 0.25s ease;
+}
+
+.tile:hover .arrow {
+  transform: translateX(4px);
+  color: #fff;
+}
+
+/* Per-type theming */
+.monster {
+  --grad: linear-gradient(135deg, #ff7a3d, #ff3b3b);
+  --tint: rgba(255, 90, 60, 0.28);
+  --edge: rgba(255, 90, 60, 0.5);
+}
+.spell {
+  --grad: linear-gradient(135deg, #2fd0a0, #1a9d8f);
+  --tint: rgba(47, 208, 160, 0.24);
+  --edge: rgba(47, 208, 160, 0.5);
+}
+.trap {
+  --grad: linear-gradient(135deg, #c05be0, #8b3bd8);
+  --tint: rgba(176, 91, 224, 0.26);
+  --edge: rgba(176, 91, 224, 0.5);
+}
+.all {
+  --grad: linear-gradient(135deg, #4a90ff, #3a5fe0);
+  --tint: rgba(74, 144, 255, 0.24);
+  --edge: rgba(74, 144, 255, 0.5);
+}

@@ -1,0 +1,108 @@
+.grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+}
+
+@media (max-width: 900px) {
+  .grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (max-width: 600px) {
+  .grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+  }
+}
+
+.card {
+  background: #171c27;
+  border: 1px solid #272e3b;
+  border-radius: 18px;
+  overflow: hidden;
+}
+
+.image {
+  aspect-ratio: 1 / 1;
+  background: #1c2230;
+}
+
+.info {
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.line {
+  height: 12px;
+  border-radius: 6px;
+  background: #1c2230;
+}
+
+.lineTitle {
+  width: 80%;
+}
+
+.lineType {
+  width: 55%;
+  height: 10px;
+}
+
+.pill {
+  width: 90px;
+  height: 24px;
+  border-radius: 999px;
+  background: #1c2230;
+  margin-top: 4px;
+}
+
+.button {
+  height: 40px;
+  border-radius: 12px;
+  background: #1c2230;
+  margin-top: 8px;
+}
+
+/* Shimmer sweep across every placeholder block */
+.image,
+.line,
+.pill,
+.button {
+  position: relative;
+  overflow: hidden;
+}
+
+.image::after,
+.line::after,
+.pill::after,
+.button::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  transform: translateX(-100%);
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.06) 50%,
+    transparent 100%
+  );
+  animation: shimmer 1.4s infinite;
+}
+
+@keyframes shimmer {
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .image::after,
+  .line::after,
+  .pill::after,
+  .button::after {
+    animation: none;
+  }
+}
