@@ -126,9 +126,11 @@ export default function Navbar() {
           <nav className={`${styles.navlinks} ${open ? styles.active : ""}`}>
             <Link href="/listings" onClick={closeMenu}>Listings</Link>
             <Link href="/cards" onClick={closeMenu}>Cards</Link>
-            <Link href="/sell" onClick={closeMenu}>Sell</Link>
             <Link href="/profile" onClick={closeMenu}>Profile</Link>
             <Link href="/cart" onClick={closeMenu}>Cart</Link>
+            <Link href="/sell" onClick={closeMenu} className={styles.sellCta}>
+              + Sell a card
+            </Link>
 
             {loggedIn && (
               <Link href="#" onClick={closeMenu} className={styles.pointsWrap}>

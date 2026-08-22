@@ -36,6 +36,23 @@
   color: #ff3b3b;
 }
 
+/* Primary call-to-action in the nav */
+.sellCta {
+  padding: 9px 16px;
+  border-radius: 999px;
+  background: #ff3b3b;
+  color: #fff !important;
+  font-weight: 600;
+  white-space: nowrap;
+  transition: background 0.2s ease, transform 0.2s ease;
+}
+
+.sellCta:hover {
+  background: #e42f2f;
+  color: #fff !important;
+  transform: translateY(-1px);
+}
+
 .menuBtn {
   display: none;
   background: transparent;
